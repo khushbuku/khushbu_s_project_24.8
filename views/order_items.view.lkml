@@ -72,6 +72,8 @@ view: order_items {
     type: average
     sql: ${sale_price} ;;
     filters: [orders.status: "CANCELLED"]
+    drill_fields: [id, orders.id, inventory_items.id]
+
     }
   measure: count {
     type: count
