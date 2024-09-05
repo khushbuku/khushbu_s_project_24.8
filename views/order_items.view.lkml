@@ -66,6 +66,9 @@ view: order_items {
 
 
   measure: average_sale_price {
+    label: "{% if _user_attributes['locale'] == 'en' %}  Khush
+    {% else %} Kunal
+    {%  endif %}"
     type: average
     sql: ${sale_price} ;;
     filters: [orders.status: "CANCELLED"]
