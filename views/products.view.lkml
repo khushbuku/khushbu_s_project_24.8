@@ -27,6 +27,14 @@ view: products {
     sql: ${TABLE}.category ;;
   }
 
+  dimension: category_test {
+    type: string
+    sql: case when ${department} = "Men" then ${category} else null end;;
+    html:
+    {% assign var1 = sum_retail_price._value %}
+    {% if var1 > 30000 %} Hidden {% else %} Hello {{rendered_value}}{% endif %} ;;
+  }
+
   dimension: department {
     type: string
     sql: ${TABLE}.department ;;
@@ -45,6 +53,12 @@ view: products {
   dimension: retail_price {
     type: number
     sql: ${TABLE}.retail_price ;;
+  }
+
+  measure: sum_retail_price {
+    type: sum
+    value_format: "0"
+    sql: ${retail_price} ;;
   }
 
   # A measure is a field that uses a SQL aggregate function. Here are defined sum and average
