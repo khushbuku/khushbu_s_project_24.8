@@ -8,6 +8,9 @@ view: order_items {
   # This primary key is the unique key for this table in the underlying database.
   # You need to define a primary key in a view in order to join to other views.
 
+  parameter: table_name {
+    type: unquoted
+  }
   dimension: id {
     primary_key: yes
     type: number
@@ -58,10 +61,14 @@ view: order_items {
 
   measure: total_sale_price {
     type: sum
-    sql: ${sale_price} ;;  }
+    sql: ${sale_price} ;;
+    }
+
   measure: average_sale_price {
     type: average
-    sql: ${sale_price} ;;  }
+    sql: ${sale_price} ;;
+    filters: [orders.status: "CANCELLED"]
+    }
   measure: count {
     type: count
     drill_fields: [id, orders.id, inventory_items.id]
